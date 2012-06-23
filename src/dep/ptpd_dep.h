@@ -310,6 +310,16 @@ Boolean netRefreshIGMP(NetPath *, RunTimeOpts *, PtpClock *);
 
 /** \}*/
 
+#if defined PTPD_SNMP
+/** \name snmp.c (SNMP subsystem)
+ * -Handle SNMP subsystem*/
+ /**\{*/
+
+void snmpInit(void);
+
+/** \}*/
+#endif
+
 /** \name servo.c
  * -Clock servo*/
  /**\{*/
