@@ -315,7 +315,7 @@ Boolean netRefreshIGMP(NetPath *, RunTimeOpts *, PtpClock *);
  * -Handle SNMP subsystem*/
  /**\{*/
 
-void snmpInit(void);
+void snmpInit(PtpClock *);
 
 /** \}*/
 #endif

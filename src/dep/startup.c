@@ -1133,7 +1133,7 @@ ptpdStartup(int argc, char **argv, Integer16 * ret, RunTimeOpts * rtOpts)
 
 #if defined PTPD_SNMP
 	/* Start SNMP subsystem */
-	snmpInit();
+	snmpInit(ptpClock);
 #endif
 
 	*ret = 0;
