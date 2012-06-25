@@ -516,9 +516,9 @@ snmpClockPortTable(SNMP_SIGNATURE) {
 			return SNMP_INTEGER(SNMP_PTP_TX_UNICAST);
 		return SNMP_INTEGER(SNMP_PTP_TX_MULTICAST);
 	case PTPBASE_CLOCK_PORT_RUNNING_PACKETS_RECEIVED:
+		return SNMP_COUNTER64(snmpPtpClock->netPath.receivedPackets);
 	case PTPBASE_CLOCK_PORT_RUNNING_PACKETS_SENT:
-		/* TODO: we don't know, no counters available. */
-		return SNMP_INTEGER(0);
+		return SNMP_COUNTER64(snmpPtpClock->netPath.sentPackets);
 	}
 
 
@@ -654,10 +654,10 @@ static struct variable7 snmpVariables[] = {
 	  snmpClockPortTable, 5, {1, 2, 9, 1, 11}},
 	{ PTPBASE_CLOCK_PORT_RUNNING_RX_MODE, ASN_INTEGER, RONLY,
 	  snmpClockPortTable, 5, {1, 2, 9, 1, 12}},
-	/* { PTPBASE_CLOCK_PORT_RUNNING_PACKETS_RECEIVED, ASN_COUNTER64, RONLY, */
-	/*   snmpClockPortTable, 5, {1, 2, 9, 1, 13}}, */
-	/* { PTPBASE_CLOCK_PORT_RUNNING_PACKETS_SENT, ASN_COUNTER64, RONLY, */
-	/*   snmpClockPortTable, 5, {1, 2, 9, 1, 14}}, */
+	{ PTPBASE_CLOCK_PORT_RUNNING_PACKETS_RECEIVED, ASN_COUNTER64, RONLY,
+	  snmpClockPortTable, 5, {1, 2, 9, 1, 13}},
+	{ PTPBASE_CLOCK_PORT_RUNNING_PACKETS_SENT, ASN_COUNTER64, RONLY,
+	  snmpClockPortTable, 5, {1, 2, 9, 1, 14}},
 
 };
 

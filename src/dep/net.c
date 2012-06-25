@@ -779,6 +779,7 @@ netRecvEvent(Octet * buf, TimeInternal * time, NetPath * netPath)
 #ifdef PTP_EXPERIMENTAL
 	netPath->lastRecvAddr = from_addr.sin_addr.s_addr;
 #endif
+	netPath->receivedPackets++;
 
 
 
@@ -925,7 +926,7 @@ netRecvGeneral(Octet * buf, TimeInternal * time, NetPath * netPath)
 #ifdef PTP_EXPERIMENTAL
 	netPath->lastRecvAddr = from_addr.sin_addr.s_addr;
 #endif
-	
+	netPath->receivedPackets++;
 	
 	
 	if (msg.msg_controllen <= 0) {
@@ -1021,6 +1022,8 @@ netSendEvent(Octet * buf, UInteger16 length, NetPath * netPath, Integer32 alt_ds
 			     sizeof(struct sockaddr_in));
 		if (ret <= 0)
 			DBG("error sending uni-cast event message\n");
+		else
+			netPath->sentPackets++;
 		/* 
 		 * Need to forcibly loop back the packet since
 		 * we are not using multicast. 
@@ -1041,6 +1044,8 @@ netSendEvent(Octet * buf, UInteger16 length, NetPath * netPath, Integer32 alt_ds
 			     sizeof(struct sockaddr_in));
 		if (ret <= 0)
 			DBG("error sending multi-cast event message\n");
+		else
+			netPath->sentPackets++;
 	}
 
 	return ret;
@@ -1068,6 +1073,8 @@ netSendGeneral(Octet * buf, UInteger16 length, NetPath * netPath, Integer32 alt_
 			     sizeof(struct sockaddr_in));
 		if (ret <= 0)
 			DBG("error sending uni-cast general message\n");
+		else
+			netPath->sentPackets++;
 	} else {
 		addr.sin_addr.s_addr = netPath->multicastAddr;
 
@@ -1076,6 +1083,8 @@ netSendGeneral(Octet * buf, UInteger16 length, NetPath * netPath, Integer32 alt_
 			     sizeof(struct sockaddr_in));
 		if (ret <= 0)
 			DBG("error sending multi-cast general message\n");
+		else
+			netPath->sentPackets++;
 	}
 	return ret;
 }
@@ -1129,6 +1138,8 @@ netSendPeerEvent(Octet * buf, UInteger16 length, NetPath * netPath)
 			     sizeof(struct sockaddr_in));
 		if (ret <= 0)
 			DBG("error sending uni-cast event message\n");
+		else
+			netPath->sentPackets++;
 
 		/* 
 		 * Need to forcibly loop back the packet since
@@ -1149,6 +1160,8 @@ netSendPeerEvent(Octet * buf, UInteger16 length, NetPath * netPath)
 			     sizeof(struct sockaddr_in));
 		if (ret <= 0)
 			DBG("error sending multi-cast event message\n");
+		else
+			netPath->sentPackets++;
 	}
 	return ret;
 }
